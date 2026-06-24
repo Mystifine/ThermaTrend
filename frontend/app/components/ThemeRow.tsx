@@ -1,14 +1,47 @@
 'use client';
 
-import {TrendingUp, TrendingDown, Clock} from "lucide-react";
+import {TrendingUp, TrendingDown, Clock, ArrowUp, ArrowDown} from "lucide-react";
 
 type ThemeItem = any;
 
-export default function ThemeRow({item, index, mode}: {item: ThemeItem; index: number; mode: "hot_themes" | "breakouts" | "pullbacks"}) {
+function RankBadge({ rankChange }: { rankChange : number | null }) {
+  if (rankChange === null) return (
+    <span className="px-1.5 py-0.5 rounded text-[9px] bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider font-bold">
+      NEW
+    </span>
+  );
+
+  if (rankChange == 0) return (
+    <span className="text-[10px] text-gray-600 font-mono">—</span>
+  );
+  if (rankChange > 0) return (
+    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+      <ArrowUp className="w-2.5 h-2.5" />{rankChange}
+    </span>
+  );
+  if (rankChange < 0) return (
+    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-red-500/10 text-red-400 border border-red-500/20">
+      <ArrowDown className="w-2.5 h-2.5" />{Math.abs(rankChange)}
+    </span>
+  )
+}
+
+export default function ThemeRow({
+  item, 
+  index, 
+  mode, 
+  previousRank
+}: {
+  item: ThemeItem; 
+  index: number; 
+  mode: "hot_themes" | "breakouts" | "pullbacks"
+  previousRank? : number
+}) {
   const score = mode === "hot_themes" ? item.hot_theme_score : mode === "breakouts" ? item.breakout_score : item.pullback_score;
   const isTop = index === 0;
   const showSymbols = 5;
   const remainingSymbols = item.stocks_analyzed.length - showSymbols;
+  const rankChange = previousRank !== undefined ? previousRank -index : null;
 
   const isMarketTheme = (theme : string) => {
     return theme == "Broad Market";
@@ -41,6 +74,8 @@ export default function ThemeRow({item, index, mode}: {item: ThemeItem; index: n
             </span>
             <div className="font-bold text-base text-gray-100 flex items-center gap-2">
               {item.theme}
+              
+              <RankBadge rankChange={rankChange} />
 
               {/* HOT LABEL */}
               {isTop && !isMarketTheme(item.theme) && (
@@ -124,6 +159,9 @@ export default function ThemeRow({item, index, mode}: {item: ThemeItem; index: n
 
             <div className="flex items-center gap-1">
               <span className="font-bold text-gray-100 text-sm">{item.theme}</span>
+
+              {/* RANK */}
+              <RankBadge rankChange={rankChange} />
 
               {/* HOT LABEL */}
               {isTop && !isMarketTheme(item.theme) && (

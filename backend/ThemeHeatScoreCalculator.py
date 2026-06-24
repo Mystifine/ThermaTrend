@@ -4,6 +4,7 @@ import uuid
 from datetime import datetime, timedelta, timezone
 import yfinance as yf
 from typing import Dict, List
+import DatabaseManager;
 
 class ThemeHeatScoreCalculator:
   """
@@ -24,7 +25,8 @@ class ThemeHeatScoreCalculator:
       if len(df) < 50:
         return None
       return df
-    except:
+    except Exception as e:
+      print(f"Error fetching stock data for {symbol}: {e}")
       return None
 
   # Stock-level metrics
@@ -169,17 +171,21 @@ class ThemeHeatScoreCalculator:
     avg_return6 = float(np.median([m["return6"] for m in stockMetrics]))
 
     """
-    Hot theme score is calculated using the following weights
-    30% on acceleration
-    30% on 1 month returns
-    20% on 3 month returns
-    20% on 6 month returns but dampened
+    Hot theme score weights:
+    - 10% on 1M→3M acceleration (immediate burst)
+    - 10% on 1M→6M acceleration (recent vs long-term baseline)
+    - 10% on 3M→6M acceleration (sustained medium-term buildup)
+    - 30% on 1-month returns
+    - 20% on 3-month returns
+    - 20% on 6-month returns (dampened)
     """
-    hot_theme_score = max(0,(
-      0.3 * np.tanh(max(0,avg_return1 - avg_return3) / 10) * 100 + 
-      0.3 * np.tanh(avg_return1 / 15) * 100 +
-      0.2 * np.tanh(avg_return3 / 30) * 100 +
-      0.2 * np.tanh(avg_return6 / 50) * 100
+    hot_theme_score = max(0, (
+      0.10 * np.tanh(max(0, avg_return1 - avg_return3) / 10) * 100 +
+      0.10 * np.tanh(max(0, avg_return1 - avg_return6) / 15) * 100 +
+      0.10 * np.tanh(max(0, avg_return3 - avg_return6) / 15) * 100 +
+      0.30 * np.tanh(avg_return1 / 15) * 100 +
+      0.20 * np.tanh(avg_return3 / 30) * 100 +
+      0.20 * np.tanh(avg_return6 / 50) * 100
     ))
 
     return {
@@ -199,11 +205,22 @@ class ThemeHeatScoreCalculator:
 
   # Ranking output
   def getRankings(self):
+    existing_data = DatabaseManager.getFromDB();
+    current_scores = {row["theme"]: row for row in existing_data} if existing_data else {};
+
     results = []
     for name, symbols in self.themes.items():
-      print(f"Analyzing {name}...")
-      score = self.calculateThemeScores(name, symbols)
+      print(f"Analyzing {name}...");
+      
+      existing_score = current_scores.get(name, {});
+
+      score = self.calculateThemeScores(name, symbols);
+
       if score:
+        score["previous_hot_theme_score"] = existing_score.get("hot_theme_score", 0);
+        score["previous_pullback_score"] = existing_score.get("pullback_score", 0);
+        score["previous_breakout_score"] = existing_score.get("breakout_score", 0);
+
         results.append(score)
 
     return results

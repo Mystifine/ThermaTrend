@@ -19,3 +19,11 @@ def pushToDB(data):
   except Exception as e:
     print(f"Error pushing to Supabase: {e}");
     return None;    
+
+def getFromDB():
+  try:
+    response = supabase.table("industry_heat").select("*").execute()
+    return response.data  # returns a list of dicts
+  except Exception as e:
+    print(f"Error fetching from Supabase: {e}")
+    return None

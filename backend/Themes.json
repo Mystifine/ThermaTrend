@@ -5,7 +5,7 @@
 
   "Robotics": ["ROBO", "ROK", "HON", "TER", "FANUY", "DHR", "ABBNY", "KLAC", "STM", "ISRG"],
 
-  "Semiconductors": ["NVDA", "AMD", "TSM", "ASML", "AVGO", "QCOM", "MU", "ARM", "AMAT", "LRCX"],
+  "Semiconductors": ["NVDA", "AMD", "TSM", "ASML", "AVGO", "QCOM", "MU", "ARM", "AMAT", "LRCX", "MRVL", "SNDK"],
 
   "Cybersecurity": ["PANW", "CRWD", "FTNT", "ZS", "OKTA", "CHKP", "TENB", "NET", "S", "AKAM"],
 
@@ -25,7 +25,7 @@
 
   "Defense": ["LMT", "NOC", "RTX", "GD", "LHX", "HII", "KTOS", "PPA", "ITA", "PLTR"],
 
-  "Aerospace": ["BA", "LMT", "RTX", "NOC", "HEI", "LHX", "TDG", "RKLB", "ARKX", "SPCE"],
+  "Aerospace": ["BA", "LMT", "RTX", "NOC", "HEI", "LHX", "TDG", "RKLB", "SPCX", "ASTS", "LUNR", "ARKX", "SPCE"],
 
   "Uranium": ["CCJ", "NXE", "UEC", "DNN", "URA", "URNM", "UROY", "PALAF", "LEU", "SMR"],
 
@@ -55,5 +55,29 @@
 
   "Copper": ["FCX", "COPX", "SCCO", "TECK", "BHP", "RIO", "VALE", "CSCCF", "CDE", "HBM"],
 
-  "Lithium": ["ALB", "SQM", "LAC", "LIT", "LTM", "GWH", "BYDDF", "TSLA", "BATT", "LTM"]
+  "Lithium": ["ALB", "SQM", "LAC", "LIT", "LTM", "GWH", "BYDDF", "TSLA", "BATT", "LTM"],
+
+  "Oil & Gas": ["XOM", "CVX", "OXY", "COP", "SLB", "HAL", "MPC", "PSX", "DVN", "XLE"],
+
+  "Banks": ["JPM", "BAC", "GS", "MS", "WFC", "C", "KRE", "XLF", "BRK-B", "FITB"],
+
+  "GLP-1 / Obesity": ["NVO", "LLY", "HIMS", "VKTX", "GPCR", "ALT", "TERN", "PEPG", "NVS", "MOTS"],
+
+  "Quantum Computing": ["IONQ", "RGTI", "QUBT", "QBTS", "IBM", "ARQQ", "QTUM", "GOOGL", "MSFT", "HON"],
+
+  "Data Centers": ["CRWV", "ALAB", "EQIX", "DLR", "IRM", "SMCI", "DELL", "WDC", "NTAP", "STX", "GDS", "VRT"],
+
+  "Natural Gas": ["LNG", "AR", "EQT", "RRC", "CTRA", "KMI", "UNG", "EXE", "BOIL"],
+
+  "Silver": ["SLV", "SILJ", "WPM", "PAAS", "HL", "AG", "FSM", "PSLV", "SIL", "EXK"],
+
+  "Steel": ["NUE", "STLD", "CLF", "MT", "PKX", "SID", "SLX", "CMC"],
+
+  "Homebuilders": ["DHI", "TOL", "NVR", "KBH", "TMHC", "BLDR", "IBP", "MHO", "SKY"],
+
+  "Streaming": ["NFLX", "SPOT", "ROKU", "DIS", "WBD", "FUBO", "SIRI", "IMAX"],
+
+  "Gaming": ["RBLX", "EA", "TTWO", "NTES", "DKNG", "SRAD", "MGM", "PENN", "PLTK", "SONY"],
+
+  "Shipping": ["ZIM", "DAC", "MATX", "SBLK", "INSW", "EGLE", "TNK", "SFL"]
 }

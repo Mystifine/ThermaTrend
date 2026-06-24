@@ -22,7 +22,7 @@ export default function HomePage() {
         </p>
 
         {/* Navigation Buttons */}
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-4 w-full max-w-xs sm:max-w-none">
           <Link
             href="/hot_themes"
             className="px-5 py-2 rounded-lg border border-red-500/30 text-red-400 hover:bg-red-500/10 transition-colors"          >
